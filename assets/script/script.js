@@ -24,6 +24,44 @@ function generatePassword() {
       else {
         return false;
       }
+    },
+
+    totalStringSample: function() {
+      var totalSample = "";
+      if (this.lowercase) {
+        totalSample += lowercaseString;
+      }
+      if (this.uppercase) {
+        totalSample += uppercaseString;
+      }
+      if (this.numeric) {
+        totalSample += numericString;
+      }
+      if (this.special) {
+        totalSample += specialString;
+      }
+      return totalSample;
+    },
+
+    returnMinimumRequirement: function() {
+      var minReq = "";
+      if (this.lowercase) {
+        minReq += this.randomFromString(lowercaseString);
+      }
+      if (this.uppercase) {
+        minReq += this.randomFromString(uppercaseString)
+      }
+      if (this.numeric) {
+        minReq += this.randomFromString(numericString);
+      }
+      if (this.special) {
+        minReq += this.randomFromString(specialString);
+      }
+      return minReq;
+    },
+
+    randomFromString: function(sampleString) {
+      return sampleString.charAt(Math.floor(Math.random() * sampleString.length));
     }
   }
 
@@ -45,9 +83,18 @@ function generatePassword() {
     // console.log(criteria);
   }
   while (passwordChar.isAllFalse());
-  
 
+  var characterSample = passwordChar.totalStringSample();
+  var generatedPassword = "";
+  for (var i=0; i<passwordLength; i++) {
+    if (i === 0) {
+      generatedPassword += passwordChar.returnMinimumRequirement();
+      i += generatedPassword.length;
+    }
+    generatedPassword += passwordChar.randomFromString(characterSample);
+  }
   
+  return generatedPassword;
 }
 
 function passwordCriteriaLength() {
