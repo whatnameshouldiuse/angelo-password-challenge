@@ -1,3 +1,11 @@
+var lowercaseString = "abcdefghijklmnopqrstuvwxyz";
+var uppercaseString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numericString = "1234567890";
+var specialString = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+// console.log(specialString.length);
+// console.log(specialString);
+// console.log(specialString.substring(0, 18));
+
 // Assignment code here
 function generatePassword() {
   // Number
