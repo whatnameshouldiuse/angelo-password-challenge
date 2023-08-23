@@ -2,11 +2,43 @@
 function generatePassword() {
   // Number
   var passwordLength;
+  // Booleans
+  let passwordChar = {
+    lowercase: false,
+    uppercase: false,
+    numeric: false,
+    special: false,
 
+    isAllFalse: function() {
+      if (!this.lowercase && !this.uppercase && !this.numeric && !this.special) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
+
+  // Ask for valid character length input, repeat until valid range is given.
   do {
     passwordLength = passwordCriteriaLength();
   }
   while (passwordLength === undefined);
+  // console.log(passwordLength);
+
+  // Ask for valid character type input, repeat until at least one type is chosen.
+  do {
+    var criteria = passwordCriteriaType();
+    passwordChar.lowercase = criteria[0];
+    passwordChar.uppercase = criteria[1];
+    passwordChar.numeric = criteria[2];
+    passwordChar.special = criteria[3];
+    // console.log(passwordChar);
+    // console.log(criteria);
+  }
+  while (passwordChar.isAllFalse());
+  
+
   
 }
 
@@ -22,6 +54,35 @@ function passwordCriteriaLength() {
   else {
     alert("Please provide a valid input");
   }
+}
+
+function passwordCriteriaType() {
+  var criteria = [false, false, false, false];
+  var criteriaCheck = function(message) {
+    var inputBool = prompt(message + "(Y/N)");
+    if (inputBool == "y" || inputBool == "Y") {
+      return true;
+    }
+    else if (inputBool == "n" || inputBool == "N") {
+      return false;
+    }
+    else {
+      alert("Please input either Y or N in either lower or uppercase");
+      return passwordCriteriaType();
+    }
+  }
+
+  criteria[0] = criteriaCheck("Should this password contain lowercase letters?");
+  criteria[1] = criteriaCheck("Should this password contain uppercase letters?");
+  criteria[2] = criteriaCheck("Should this password contain numbers?");
+  criteria[3] = criteriaCheck("Should this password contain special characters?");
+
+  for (var i in criteria) {
+    if (i) {
+      return criteria;
+    }
+  }
+  alert("Please make sure at least one of the criteria types are chosen");
 }
 
 // Get references to the #generate element
