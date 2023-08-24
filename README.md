@@ -5,7 +5,7 @@
 This website is meant to provide the users with strong, customizable security, by generating a password based on the criteria chosen by the user. These criterias include the length of the password, and the various character types that wil comprise the password. The resulting password is completely random and jumbled up.
 
 ## Webpage
-[Github Page]()
+[Github Page](https://whatnameshouldiuse.github.io/angelo-password-challenge/)
 
 ![Screenshot of the deployed webpage](./assets/password-generator-screenshot.PNG)
 
