@@ -84,17 +84,28 @@ function generatePassword() {
   }
   while (passwordChar.isAllFalse());
 
+  // Generate Password, at least the characters that are contained in the password
   var characterSample = passwordChar.totalStringSample();
-  var generatedPassword = "";
+  var genPass = ""; // Generated Password
   for (var i=0; i<passwordLength; i++) {
     if (i === 0) {
-      generatedPassword += passwordChar.returnMinimumRequirement();
-      i += generatedPassword.length;
+      genPass += passwordChar.returnMinimumRequirement();
+      i += genPass.length;
     }
-    generatedPassword += passwordChar.randomFromString(characterSample);
+    genPass += passwordChar.randomFromString(characterSample);
+  }
+
+  // Shuffle the password, so up to first 4 characters of the password aren't ordered by lowercase, uppercase, number, than special character
+  // Fisher-Yates shuffle
+  var genPass = genPass.split("");
+  for (var i = passwordLength - 1; i > 0; i--) {
+    var replaceIndex = Math.floor(Math.random() * (i + 1));
+    var tempChar = genPass[i];
+    genPass[i] = genPass[replaceIndex];
+    genPass[replaceIndex] = tempChar;
   }
   
-  return generatedPassword;
+  return genPass.join("");
 }
 
 function passwordCriteriaLength() {
@@ -149,7 +160,7 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
+  alert("Password successfully generated!\n" + password);
 }
 
 // Add event listener to generate button
