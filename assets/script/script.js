@@ -70,14 +70,15 @@ function generatePassword() {
   while (criteriaLength === undefined);
 
   // Ask for valid character type input, repeat until at least one type is chosen.
+  var criteria;
   do {
-    var criteria = promptCriteriaType();
-    criteriaCharType.lowercase = criteria[0];
-    criteriaCharType.uppercase = criteria[1];
-    criteriaCharType.numeric = criteria[2];
-    criteriaCharType.special = criteria[3];
+    criteria = promptCriteriaType();
   }
-  while (criteriaCharType.isAllFalse());
+  while (criteria === undefined);
+  criteriaCharType.lowercase = criteria[0];
+  criteriaCharType.uppercase = criteria[1];
+  criteriaCharType.numeric = criteria[2];
+  criteriaCharType.special = criteria[3];
 
   // Generate Password
   // First input one character from each type of character the password will have.
@@ -138,7 +139,7 @@ function promptCriteriaType() {
     }
     else {
       alert("Please input either Y or N in either lower or uppercase");
-      return promptCriteriaType();
+      return criteriaCheck(message);
     }
   }
 
@@ -147,11 +148,11 @@ function promptCriteriaType() {
   criteria[2] = criteriaCheck("Should this password contain numbers?");
   criteria[3] = criteriaCheck("Should this password contain special characters?");
 
-  for (var i in criteria) {
-    if (i) {
-      return criteria;
-    }
+  for (var i=0; i < criteria.length; i++) {
+    if (criteria[i])
+    return criteria;
   }
+
   alert("Please make sure at least one of the criteria types are chosen");
 }
 
